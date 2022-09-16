@@ -44,6 +44,6 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         # shell: powershell
         run: |
-          SonarScanner.MSBuild.exe begin /k:"SonarVB.NET" /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-          MSBuild.exe Assignment.sln /t:Rebuild
-          SonarScanner.MSBuild.exe end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+         .sonar/scanner/dotnet-sonarscanner begin /k:"SonarVB.NET" /o:"bwan109" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+         MSBuild.exe Assignment.sln /t:Rebuild
+         .sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
