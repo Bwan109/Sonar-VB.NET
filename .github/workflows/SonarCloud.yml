@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Set up JDK 11
         uses: actions/setup-java@v1
@@ -17,6 +17,9 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      # For Windows only
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
       - name: Install xmllint
         run: sudo apt-get install -y libxml2-utils
       - name: Install mono
@@ -50,6 +53,10 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         # shell: powershell
         run: |
-         mono SonarScanner.MSBuild.exe begin /k:"SonarVB.NET" /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+         .sonar/scanner/dotnet-sonarscanner begin /k:"SonarVB.NET" /o:"bwan109" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
          MSBuild.exe Assignment.sln /t:Rebuild
-         SonarScanner.MSBuild.exe end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+         .sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+        # mono SonarScanner.MSBuild.exe begin /k:"SonarVB.NET" /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+        # MSBuild.exe Assignment.sln /t:Rebuild
+        # SonarScanner.MSBuild.exe end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"  
+
