@@ -45,5 +45,5 @@ jobs:
         # shell: powershell
         run: |
           SonarScanner.MSBuild.dll begin /k:"SonarVB.NET" /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-          MSBuild.exe Assignment.sln /t:Rebuild
+          MSBuild.dll Assignment.sln /t:Rebuild
           SonarScanner.MSBuild.dll end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
