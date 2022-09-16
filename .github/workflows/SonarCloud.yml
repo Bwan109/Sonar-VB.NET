@@ -53,6 +53,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         # shell: powershell
         run: |
+        # For Ubuntu Linux
          .sonar/scanner/dotnet-sonarscanner begin /k:"SonarVB.NET" /o:"bwan109" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
          msbuild Assignment.sln /t:Rebuild
          .sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
