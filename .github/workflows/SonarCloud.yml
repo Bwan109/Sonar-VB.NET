@@ -43,5 +43,5 @@ jobs:
         # shell: powershell
         run: |
          .sonar/scanner/dotnet-sonarscanner begin /k:"SonarVB.NET" /o:"bwan109" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-         msbuild tree/master/AssignmentAssignment.vbproj
+         msbuild tree/master/Assignment/Assignment.vbproj
          .sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
